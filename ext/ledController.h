@@ -1,10 +1,10 @@
 #include <pthread.h>
 #include "rice/Array.hpp"
 
-class LedDataSet {
+class LedController {
 public:
-  LedDataSet();
-  ~LedDataSet();
+  LedController();
+  ~LedController();
   void setMatrix(Rice::Array a);
   Rice::Array getMatrix(void);
 private:
