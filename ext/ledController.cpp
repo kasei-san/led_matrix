@@ -1,13 +1,13 @@
 #include <iostream>
 #include <string>
 #include <wiringPi.h>
-#include "ledDataSet.h"
+#include "ledController.h"
 #include "rice/Class.hpp"
 #include "rice/Constructor.hpp"
 #include "rice/Data_Type.hpp"
 
 using namespace Rice;
-LedDataSet::LedDataSet(){
+LedController::LedController(){
   memset(&matrix, 0x00, sizeof(matrix));
 
   if (wiringPiSetup() == -1) {
@@ -24,30 +24,30 @@ LedDataSet::LedDataSet(){
   threadStart();
 }
 
-LedDataSet::~LedDataSet(){
+LedController::~LedController(){
   pthread_cancel(this->thread_handler);     // スレッドにキャンセル要求を投げる
   pthread_join(this->thread_handler, NULL); // スレッドが終了するまで待機
 
   reset();
 }
 
-void LedDataSet::threadStart(void){
+void LedController::threadStart(void){
   std::cout << "threadStart" << std::endl;
   pthread_mutex_init(&(this->mutex), NULL);
   pthread_create(
       &(this->thread_handler),
       NULL,
-      &LedDataSet::mainLoopLauncher,
+      &LedController::mainLoopLauncher,
       this
       );
 }
 
-void* LedDataSet::mainLoopLauncher(void* args){
-  reinterpret_cast<LedDataSet*>(args)->mainLoop();
+void* LedController::mainLoopLauncher(void* args){
+  reinterpret_cast<LedController*>(args)->mainLoop();
   return NULL;
 }
 
-void LedDataSet::mainLoop(void){
+void LedController::mainLoop(void){
   std::cout << "mainloop" << std::endl;
   while(1){
     pthread_testcancel();                 // キャンセル要求が来ていたらここで終了
@@ -84,7 +84,7 @@ void LedDataSet::mainLoop(void){
   }
 }
 
-void LedDataSet::reset(void){
+void LedController::reset(void){
   std::cout << "reset" << std::endl;
   digitalWrite(SIN_Y  , GPIO_LOW);
   digitalWrite(SIN_X1 , GPIO_LOW);
@@ -93,12 +93,12 @@ void LedDataSet::reset(void){
   digitalWrite(LATCH  , GPIO_LOW);
 }
 
-void LedDataSet::latch(void){
+void LedController::latch(void){
   digitalWrite(LATCH, GPIO_LOW);
   digitalWrite(LATCH, GPIO_HIGH);
 }
 
-void LedDataSet::setMatrix(Array a){
+void LedController::setMatrix(Array a){
   int cnt = 0;
   Array::const_iterator aI = a.begin();
   Array::const_iterator aE = a.end();
@@ -110,17 +110,17 @@ void LedDataSet::setMatrix(Array a){
   }
 }
 
-Array LedDataSet::getMatrix(void){
+Array LedController::getMatrix(void){
   Array result;
   for(int i=0; i<16; i++){ result.push(matrix[i]); }
   return result;
 }
 
 extern "C" {
-  void Init_LedDataSet() {
-    Data_Type<LedDataSet> led = define_class<LedDataSet>("LedDataSet")
-     .define_constructor(Constructor<LedDataSet>())
-     .define_method("matrix",  &LedDataSet::getMatrix)
-     .define_method("matrix=", &LedDataSet::setMatrix);
+  void Init_LedController() {
+    Data_Type<LedController> led = define_class<LedController>("LedController")
+     .define_constructor(Constructor<LedController>())
+     .define_method("matrix",  &LedController::getMatrix)
+     .define_method("matrix=", &LedController::setMatrix);
   }
 }

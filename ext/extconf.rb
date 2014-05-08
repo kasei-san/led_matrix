@@ -1,3 +1,3 @@
 require 'mkmf-rice'
 have_library('wiringPi')
-create_makefile('LedDataSet')
+create_makefile('LedController')
