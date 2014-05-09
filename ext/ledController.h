@@ -14,7 +14,10 @@ private:
   void reset(void);
   void latch(void);
 
-  int matrix[16];
+  unsigned long matrix[16];
+
+  static const int SIN_Y_MAX = 16;
+  static const int SIN_X_MAX = 32;
 
   static const int SIN_Y  = 0;
   static const int SIN_X1 = 6;

@@ -13,7 +13,7 @@ class LedDataSet
 
   def next
     @current = @binaly_arrays.map do |bin|
-                 (bin[@cnt, 16] + Array.new(16, 0)).first(16).join.to_i(2)
+                 (bin[@cnt, 32] + Array.new(32, 0)).first(32).join.to_i(2)
                end
     @cnt+=1
     @current

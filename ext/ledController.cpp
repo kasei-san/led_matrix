@@ -53,18 +53,13 @@ void LedController::mainLoop(void){
     pthread_testcancel();                 // キャンセル要求が来ていたらここで終了
     pthread_mutex_lock(&(this->mutex));   // 優先権を保持するまで待機
 
-    for(int y_cnt=0; y_cnt<16; y_cnt++){
-      int mask = 1;
-      int line = matrix[y_cnt];
+    for(int y_cnt=0; y_cnt<SIN_Y_MAX; y_cnt++){
+      unsigned long mask = 1;
+      unsigned long line = matrix[y_cnt];
       for(int x_cnt=0; x_cnt<16; x_cnt++){
         if(y_cnt == x_cnt){ digitalWrite(SIN_Y, GPIO_HIGH); }
-        if(line & mask){
-          digitalWrite(SIN_X1, 1);
-          digitalWrite(SIN_X2, 0);
-        }else{
-          digitalWrite(SIN_X1, 0);
-          digitalWrite(SIN_X2, 0);
-        }
+        digitalWrite(SIN_X1, (line & mask<<16) ? 1 : 0);
+        digitalWrite(SIN_X2, (line & mask) ? 1 : 0);
 
         digitalWrite(CLOCK, GPIO_HIGH);
 
@@ -103,8 +98,8 @@ void LedController::setMatrix(Array a){
   Array::const_iterator aI = a.begin();
   Array::const_iterator aE = a.end();
 
-  while (aI != aE and cnt < 16) {
-    matrix[cnt] = std::atoi((*aI).to_s().c_str());
+  while (aI != aE and cnt < SIN_Y_MAX) {
+    matrix[cnt] = std::strtoul((*aI).to_s().c_str(), NULL, 0);
     ++aI;
     cnt++;
   }
@@ -112,7 +107,7 @@ void LedController::setMatrix(Array a){
 
 Array LedController::getMatrix(void){
   Array result;
-  for(int i=0; i<16; i++){ result.push(matrix[i]); }
+  for(int i=0; i<SIN_Y_MAX; i++){ result.push(matrix[i]); }
   return result;
 }
 

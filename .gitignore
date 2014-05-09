@@ -2,5 +2,6 @@
 .bundle
 vendor
 /ext/*.o
+/ext/*.so
 /ext/*.bundle
 /ext/Makefile
