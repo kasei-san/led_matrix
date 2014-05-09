@@ -17,11 +17,12 @@ class LedIntermediator
         begin
           @mutex.synchronize do
             @led_controller.matrix = @led_dataset.next
+            @led_dataset.reset if @led_dataset.finish?
           end
         rescue => e
-          e.message
+          p e.message
         end
-        sleep(0.1)
+        sleep(0.05)
       end
     end
   end
