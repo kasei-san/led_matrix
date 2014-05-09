@@ -6,6 +6,7 @@ class Bdf
 
   BDF_FONT_DIR = File.join(*%W[#{Dir::pwd} font shinonome-0.9.11 bdf])
   def initialize
+    p "Bdf initializing.."
     @fonts = {}
 
     [
@@ -36,6 +37,8 @@ class Bdf
         end
       end
     end
+
+    p "Bdf initializied"
   end
 
   def [](chr)
