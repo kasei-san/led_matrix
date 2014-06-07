@@ -19,3 +19,7 @@ and...
 ## test
 
     $ bundle exec rspec spec/**/*_spec.rb -fn -c
+
+## 動作確認
+
+    $ sudo ruby -e "require './lib/led_intermediator.rb'; ctr = LedIntermediator.instance.set_str('test'); sleep(30)"
