@@ -22,7 +22,7 @@ class LedIntermediator
         rescue => e
           p e.message
         end
-        sleep(0.05)
+        sleep(0.01)
       end
     end
   end
