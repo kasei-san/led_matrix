@@ -3,7 +3,7 @@
 require './lib/led_intermediator.rb'
 
 class Main
-  HELLO = 'ドーモ。kasei_san です 撮影自由。アップロード自由'
+  HELLO = 'ドーモ kasei_san です 撮影自由 アップロード自由'
   MESSAGES = %W[
     スッゾオラー
     ザッケンナコラー
@@ -39,7 +39,7 @@ class Main
             @cnt = 0
             HELLO
           else
-            if @messages = []
+            if @messages == []
               init_str
             end
             @messages.shift
