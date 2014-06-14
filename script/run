@@ -56,4 +56,4 @@ main = Main.new
 main.next_str
 
 
-
+sleep

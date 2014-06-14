@@ -27,6 +27,6 @@ class LedDataSet
   end
 
   def finish?
-    @current == nil or @cnt > (@binaly_arrays.first.length + 32)
+    @cnt > (@binaly_arrays.first.length + 32)
   end
 end
