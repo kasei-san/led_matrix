@@ -17,14 +17,13 @@ class LedIntermediator
         begin
           @mutex.synchronize do
             @led_controller.matrix = @led_dataset.next
-            if @led_dataset.finish?
-              @led_dataset.reset
-            end
           end
 
           if @led_dataset.finish?
+            @led_dataset.reset
             @obj.finish
           end
+
         rescue => e
           p e.message
         end
