@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 # -*- encoding: utf-8 -*-
-require './lib/led_intermediator.rb'
+require File.join(File.dirname(__FILE__), 'lib/led_intermediator.rb')
 
 class Main
   HELLO = 'ドーモ kasei_san です 撮影自由 アップロード自由'
