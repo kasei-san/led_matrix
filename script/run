@@ -15,11 +15,13 @@ class Main
     武田信玄
     お上品？否カラオケ
     ふかしポテトでも
-    罪罰罪罰罪罰罪罰罪罰罪罰罪罰罪罰罪罰罪罰
     インガオホー
     おマミ
     不如帰
     ちょっとやめないか
+    ニューワールドオダー
+    皆さんを守るオムラ社のマシンガン
+    宇宙時代...軌道上にございます
   ]
 
   def initialize
@@ -43,6 +45,7 @@ class Main
             @messages.shift
           end
     p "next_str(#{str})"
+    @cnt += 1
     @ctr.set_str(str)
   end
 
