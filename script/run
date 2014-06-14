@@ -1,0 +1,59 @@
+#!/usr/bin/ruby
+# -*- encoding: utf-8 -*-
+require './lib/led_intermediator.rb'
+
+class Main
+  HELLO = 'ドーモ。kasei_san です 撮影自由。アップロード自由'
+  MESSAGES = %W[
+    スッゾオラー
+    ザッケンナコラー
+    みなさんを守るオムラ社のマシンガン
+    そでん
+    #{"カラテ十三段 殺人のライセンス 日本語を理解しない"}
+    「イヤーッ！」「グワーッ！」「イヤーッ！」「グワーッ！」
+    ビョウキ、トシヨリ、ヨロシサン
+    武田信玄
+    お上品？否カラオケ
+    ふかしポテトでも
+    罪罰罪罰罪罰罪罰罪罰罪罰罪罰罪罰罪罰罪罰
+    インガオホー
+    おマミ
+    不如帰
+    ちょっとやめないか
+  ]
+
+  def initialize
+    @ctr = LedIntermediator.instance
+    @ctr.set_finish_event(self)
+    @cnt = 0
+  end
+
+  def init_str
+    @messages = MESSAGES.shuffle
+  end
+
+  def next_str
+    str = if @cnt == 4
+            @cnt = 0
+            HELLO
+          else
+            if @messages = []
+              init_str
+            end
+            @messages.shift
+          end
+    p "next_str(#{str})"
+    @ctr.set_str(str)
+  end
+
+  def finish
+    p "next_str"
+    next_str
+  end
+end
+
+main = Main.new
+main.next_str
+
+
+

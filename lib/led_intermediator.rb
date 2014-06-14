@@ -17,7 +17,10 @@ class LedIntermediator
         begin
           @mutex.synchronize do
             @led_controller.matrix = @led_dataset.next
-            @led_dataset.reset if @led_dataset.finish?
+            if @led_dataset.finish?
+              @led_dataset.reset
+              @obj.finish
+            end
           end
         rescue => e
           p e.message
@@ -25,6 +28,12 @@ class LedIntermediator
         sleep(0.01)
       end
     end
+  end
+
+  # obj has #finish
+  #
+  def set_finish_event(obj)
+    @obj = obj
   end
 
   def set_str(str)
