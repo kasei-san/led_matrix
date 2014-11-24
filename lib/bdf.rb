@@ -4,7 +4,7 @@ require 'singleton'
 class Bdf
   include Singleton
 
-  BDF_FONT_DIR = File.join(*%W[#{Dir::pwd} font shinonome-0.9.11 bdf])
+  BDF_FONT_DIR = File.join(*%W[#{File.dirname(__FILE__)} .. font shinonome-0.9.11 bdf])
   def initialize
     p "Bdf initializing.."
     @fonts = {}

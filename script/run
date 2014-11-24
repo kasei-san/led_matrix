@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
 # -*- encoding: utf-8 -*-
-require File.join(File.dirname(__FILE__), 'lib/led_intermediator.rb')
+require File.join(File.dirname(__FILE__), '../lib/led_intermediator.rb')
 
 class Main
   HELLO = 'ドーモ kasei_san です 撮影自由 アップロード自由'
@@ -28,6 +28,7 @@ class Main
     @ctr = LedIntermediator.instance
     @ctr.set_finish_event(self)
     @cnt = 0
+    init_str
   end
 
   def init_str
