@@ -2,6 +2,7 @@
 require File.join(File.dirname(__FILE__), 'bdf')
 
 class LedDataSet
+  attr_reader :binaly_arrays
   def initialize(str)
     @binaly_arrays = str.to_bdf.map do |array|
                        Array.new(32,'0') + array

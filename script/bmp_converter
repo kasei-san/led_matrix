@@ -1,0 +1,17 @@
+#!/usr/bin/ruby
+# -*- encoding: Utf-8 -*-
+$KCODE = 'u'
+
+p File.join(*%W[#{File.dirname(__FILE__)} .. lib led_dataset.rb])
+require File.join(*%W[#{File.dirname(__FILE__)} .. lib led_dataset.rb])
+
+File.open(File.join(*%W[#{File.dirname(__FILE__)} .. message.txt])) do |f|
+  f.read.split("\n").map do |line|
+    p line
+    dataset = LedDataSet.new(line)
+    puts dataset.binaly_arrays.inspect
+  end
+end
+
+
+
